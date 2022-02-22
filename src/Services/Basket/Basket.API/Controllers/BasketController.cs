@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Basket.API.Controllers
 {
     [ApiController]
-    [Route("api/[Controller]")]
+    [Route("api/v2/[Controller]")]
     public class BasketController : ControllerBase
     {
         private readonly IBasketRepository _repository;
