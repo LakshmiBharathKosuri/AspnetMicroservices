@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "Discount.Grpc": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": "true",
+      //removed the https url & changed the port from 5000 to 5003
+      //as the other api services are using the ports 5000,5001 & 5002.
+      "applicationUrl": "http://localhost:5003"
+    }
+  }
+}
