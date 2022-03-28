@@ -1,4 +1,7 @@
+using Basket.API.GrpcServices;
 using Basket.API.Repositories;
+using Discount.Grpc.Protos;
+using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +45,37 @@ namespace Basket.API
                 options.Configuration = Configuration.GetValue<string>("CacheSettings:ConnectionString");
             });
 
+            //general configurations
             services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddAutoMapper(typeof(Startup));
+
+            //registering the grpc services:client and service class.
+            //because service class "DiscountGrpcService" internally using the DiscountProtoServiceClient.
+
+            //we have to give the connection string for uri configuration in appsetting.json
+
+            services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>
+               (o => o.Address = new Uri(Configuration["GrpcSettings:DiscountUrl"]));
+            services.AddScoped<DiscountGrpcService>();
+
+            // MassTransit-RabbitMQ Configuration
+            /*
+             In the config => we have to provide the rabbit mq connection string.
+             RabbitMq is on the amqp protocal
+             RabbitMq offical port number is : 5672
+
+             from below code, we have added the MassTransit. Inside the MassTransit we have provided
+             rabbitMq Url Connections.
+
+             MassTransit uses the RabbitMq as a service bus.
+             */
+            services.AddMassTransit(config => {
+                config.UsingRabbitMq((ctx, cfg) => {
+                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
+                });
+            });
+            services.AddMassTransitHostedService();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

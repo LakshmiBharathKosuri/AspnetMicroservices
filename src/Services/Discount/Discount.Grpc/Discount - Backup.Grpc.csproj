@@ -3,8 +3,6 @@
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
 		<DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
-		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<DockerfileContext>..\..\..</DockerfileContext>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -26,7 +24,6 @@
 		<!--Dapper is a ORM [obejct relational mapping which is used to map the things b/w the db 
 	 and entity classes-->
 		<PackageReference Include="Dapper" Version="2.0.123" />
-		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
 		<!--Npgsql: is used to connect with the postgre sql-->
 		<PackageReference Include="Npgsql" Version="6.0.3" />
 	</ItemGroup>

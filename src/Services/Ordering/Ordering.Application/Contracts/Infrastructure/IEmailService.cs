@@ -1,0 +1,18 @@
+﻿using Ordering.Application.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ordering.Application.Contracts.Infrastructure
+{
+    /* Folder Infrastucture deals with the External Infrastructure contracts.
+     
+       IEmailService interface will be implemented in Infrastructure layer.
+    */
+    public interface IEmailService
+    {
+        Task<bool> SendEmail(Email email);
+    }
+}
